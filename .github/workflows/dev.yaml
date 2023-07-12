@@ -9,7 +9,7 @@ jobs:
   build-dev-website:
     runs-on: ubuntu-latest
     env:
-      S3_BUCKET: seytech-static-website-dev
+      S3_BUCKET: adv-it-app-test-001
     steps:
       - name: Checkout
         uses: actions/checkout@v3
