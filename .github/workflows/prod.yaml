@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-dev-website:
+  build-production-website:
     runs-on: ubuntu-latest
     env:
       S3_BUCKET: seytech-static-website-prod
