@@ -1,15 +1,15 @@
-name: Deploy feature branch to dev S3 bucket
+name: Deploy main branch to production S3 bucket
 
 on:
   push:
     branches:
-      - dev*
+      - main
 
 jobs:
-  build-dev-website:
+  build-production-website:
     runs-on: ubuntu-latest
     env:
-      S3_BUCKET: seytech-static-website-dev
+      S3_BUCKET: seytech-static-website-prod
     steps:
       - name: Checkout
         uses: actions/checkout@v3
