@@ -1,0 +1,32 @@
+name: Deploy feature branch to dev S3 bucket
+
+on:
+  push:
+    branches:
+      - dev*
+
+jobs:
+  build-dev-website:
+    runs-on: ubuntu-latest
+    env:
+      S3_BUCKET: seytech-static-website-dev
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: AWS configure cli access
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - name: Set Node.Js up
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+      - name: Build the website
+        run: |
+          npm ci
+          npm run build
+      - name: Deploy website to S3 bucket
+        run: |
+          aws s3 cp public s3://$ {{ env.S3_BUCKET }}/ --recursive --acl public-read
